@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Writing Components</title>
+</head>
+
+<script>
+	function InputTextNumberComponent(domElement) {
+		this.initialize(domElement);
+	}
+	InputTextNumberComponent.prototype.initialize = function(domElement) {
+		domElement.onchange = function() {
+			//just a format
+			domElement.value = "-" + domElement.value + "-";
+		};
+		domElement.jsComponent = this; //Expando property
+		this.domElement = domElement;
+	};
+	InputTextNumberComponent.prototype.resetValue = function() {
+		this.domElement.value = "";
+	};
+
+	window.onload = function() {
+		var inputTextNumbers = document
+				.getElementsByClassName("inputTextNumber");
+		for (var i = 0; i < inputTextNumbers.length; i++) {
+			var myComp = new InputTextNumberComponent(inputTextNumbers.item(i));
+		}
+	};
+</script>
+
+<style type="text/css">
+.inputTextNumber {
+	text-align: right;
+}
+</style>
+
+<body>
+
+	<input type="text" class="inputTextNumber" name="NumberField" size="10"
+		value="Click me!" onClick="this.jsComponent.resetValue()">
+
+
+
+</body>
+</html>
